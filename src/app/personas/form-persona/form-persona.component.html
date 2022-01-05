@@ -1,0 +1,54 @@
+<div class="container">
+  <form
+    class="row row-cols-lg-auto g-3 align-items-center"
+    #f="ngForm"
+    (ngSubmit)="f.form.valid && onGuardarPersona()"
+  >
+    <div class="col-12">
+      <label class="visually-hidden" for="nombreInput">Nombre</label>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre"
+          name="nombreInput"
+          [(ngModel)]="nombreInput"
+          required
+        />
+      </div>
+    </div>
+    <div class="col-12">
+      <label class="visually-hidden" for="apellidoInput">Apellido</label>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Apellido"
+          name="apellidoInput"
+          [(ngModel)]="apellidoInput"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button
+        type="submit"
+        class="btn"
+        [ngClass]="indice != null ? 'btn-warning' : 'btn-primary'"
+        title="indice != null ? 'Editar' : 'Agregar'"
+      >
+        {{ indice != null ? "Editar" : "Agregar" }}
+      </button>
+      <button
+        *ngIf="indice != null"
+        type="button"
+        class="btn btn-danger ms-2"
+        title="Eliminar"
+        (click)="onEliminarPersona()"
+      >
+        -
+      </button>
+    </div>
+  </form>
+</div>

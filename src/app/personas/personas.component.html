@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="text-center mb-3">
+    <button class="btn btn-primary border-5" (click)="onClick()">
+      Agregar
+    </button>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h5 class="mt-3">Listado de personas</h5>
+      <div class="vstack gap-3">
+        <app-persona
+          *ngFor="let personaParent of personas; let i = index"
+          [persona]="personaParent"
+          [i]="i"
+        ></app-persona>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
