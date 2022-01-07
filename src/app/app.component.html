@@ -1,2 +1,18 @@
+<div class="d-grid gap-2 d-md-flex justify-content-md-end m-3">
+  <a
+    *ngIf="!isLogged()"
+    routerLink="/login"
+    class="btn btn-outline-primary rounded"
+    >Iniciar sesión</a
+  >
+  <button
+    *ngIf="isLogged()"
+    class="btn btn-outline-secondary rounded"
+    (click)="logout()"
+  >
+    Cerrar sesión
+  </button>
+</div>
+
 <h1 class="mx-5 mb-4">{{ title }}</h1>
 <router-outlet></router-outlet>
