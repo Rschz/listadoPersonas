@@ -1,23 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Persona } from './interfaces/persona';
+import { LoginService } from './login/login.service';
 
 @Injectable()
 export class DataService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private loginService: LoginService
+  ) {}
 
   //Obtener personas
   obtenerPersonas() {
+    const token = this.loginService.token;
     return this.httpClient.get<Persona[]>(
-      'https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos.json'
+      'https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos.json?auth=' +
+        token
     );
   }
 
   //Guardar personas
   guardarPersonas(personas: Persona[]) {
+    const token = this.loginService.token;
+
     this.httpClient
       .put(
-        'https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos.json',
+        'https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos.json?auth=' +
+          token,
         personas
       )
       .subscribe({
@@ -29,7 +38,11 @@ export class DataService {
 
   //Modificar persona
   modificarPersona(index: number, persona: Persona) {
-    let url: string = `https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos/${index}.json`;
+    const token = this.loginService.token;
+
+    let url: string =
+      `https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos/${index}.json?auth=` +
+      token;
 
     this.httpClient.put(url, persona).subscribe({
       complete: () => console.log('Se completo la edición'),
@@ -38,7 +51,11 @@ export class DataService {
   }
 
   eliminarPersona(index: number) {
-    let url: string = `https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos/${index}.json`;
+    const token = this.loginService.token;
+
+    let url: string =
+      `https://listadopersonas-cefbc-default-rtdb.firebaseio.com/datos/${index}.json?auth=` +
+      token;
 
     this.httpClient.delete(url).subscribe({
       complete: () => console.log('Se elimino'),
